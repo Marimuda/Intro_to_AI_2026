@@ -1,0 +1,29 @@
+name: Student release boundary
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the student repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile released Python files
+        run: >-
+          python -m py_compile
+          Search/degrees.py
+          Search/util.py
+          tic-tac-toe/tictactoe.py
+          tic-tac-toe/runner.py
+          scripts/verify_student_release.py
+
+      - name: Verify the student-solution boundary
+        run: python scripts/verify_student_release.py
