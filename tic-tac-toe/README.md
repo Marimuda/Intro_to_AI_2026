@@ -1,7 +1,7 @@
-# Tic-Tac-Toe — student starter
+# Tic-Tac-Toe
 
-This starter represents Tic-Tac-Toe as a deterministic, adversarial search
-problem. Seven functions in `tictactoe.py` are intentionally unfinished:
+This project represents Tic-Tac-Toe as a deterministic, adversarial search
+problem, built from seven functions in `tictactoe.py`:
 
 - `player`
 - `actions`
@@ -11,10 +11,10 @@ problem. Seven functions in `tictactoe.py` are intentionally unfinished:
 - `utility`
 - `minimax`
 
-For the required Thursday preparation, inspect what the first six function
-contracts mean and connect them to states, actions, terminal tests, and utility.
-A complete Minimax implementation is an extension rather than part of the
-protected Week 2 core.
+The deadline has passed, so a worked implementation is now released, with
+`max_value` and `min_value` as the two halves of the Minimax recursion. Read
+the first six functions as states, actions, terminal tests, and utility before
+reading `minimax` itself.
 
 ## Setup
 
@@ -27,7 +27,7 @@ python -m pip install -r requirements.txt
 python -m py_compile tictactoe.py runner.py
 ```
 
-After implementing the required functions, launch the interface with:
+Then launch the interface with:
 
 ```bash
 python runner.py
@@ -35,6 +35,6 @@ python runner.py
 
 The project is adapted from Harvard's
 [CS50 AI Tic-Tac-Toe project](https://cs50.harvard.edu/ai/projects/0/tictactoe/).
-Keep the constants and public function signatures unchanged. Do not use or
-share a completed implementation; you will be asked to explain and vary your
-algorithm.
+Keep the constants and public function signatures unchanged. You will still be
+asked to explain and vary the algorithm, so work through it rather than around
+it.

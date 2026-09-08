@@ -36,7 +36,10 @@ STARTER_STUBS: dict[str, tuple[str, ...]] = {
 
 # Functions whose worked solution has been released after the deadline.
 # Moving a name here is the deliberate act of publishing that answer.
-RELEASED_SOLUTIONS: dict[str, tuple[str, ...]] = {}
+RELEASED_SOLUTIONS: dict[str, tuple[str, ...]] = {
+    "Search/degrees.py": ("shortest_path",),
+    "tic-tac-toe/tictactoe.py": TICTACTOE_FUNCTIONS,
+}
 
 
 def public_files() -> list[Path]:
