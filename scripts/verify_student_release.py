@@ -18,7 +18,7 @@ FORBIDDEN_FILE_MARKERS = (
     "-answer-key",
     "worksheet_sol",
 )
-TICTACTOE_STUBS = (
+TICTACTOE_FUNCTIONS = (
     "player",
     "actions",
     "result",
@@ -27,6 +27,16 @@ TICTACTOE_STUBS = (
     "utility",
     "minimax",
 )
+
+# Functions that must still be clean starter stubs in the public checkout.
+STARTER_STUBS: dict[str, tuple[str, ...]] = {
+    "Search/degrees.py": ("shortest_path",),
+    "tic-tac-toe/tictactoe.py": TICTACTOE_FUNCTIONS,
+}
+
+# Functions whose worked solution has been released after the deadline.
+# Moving a name here is the deliberate act of publishing that answer.
+RELEASED_SOLUTIONS: dict[str, tuple[str, ...]] = {}
 
 
 def public_files() -> list[Path]:
@@ -89,20 +99,28 @@ def is_clean_stub(function: ast.FunctionDef) -> bool:
 
 
 def check_python_boundaries() -> None:
-    degrees = functions(ROOT / "Search" / "degrees.py")
-    assert "shortest_path" in degrees, "Degrees shortest_path() is missing"
-    assert is_clean_stub(degrees["shortest_path"]), (
-        "Degrees shortest_path() must remain a clean starter stub"
-    )
+    for relative, names in STARTER_STUBS.items():
+        path = ROOT / relative
+        if not path.exists():
+            continue
+        defined = functions(path)
+        for name in names:
+            if name in RELEASED_SOLUTIONS.get(relative, ()):
+                continue
+            assert name in defined, f"{relative}: {name}() is missing"
+            assert is_clean_stub(defined[name]), (
+                f"{relative}: {name}() must remain a clean starter stub"
+            )
 
-    tictactoe = functions(ROOT / "tic-tac-toe" / "tictactoe.py")
-    assert set(TICTACTOE_STUBS) <= set(tictactoe), (
-        "one or more required Tic-Tac-Toe functions are missing"
-    )
-    for name in TICTACTOE_STUBS:
-        assert is_clean_stub(tictactoe[name]), (
-            f"Tic-Tac-Toe {name}() must remain a clean starter stub"
-        )
+    for relative, names in RELEASED_SOLUTIONS.items():
+        path = ROOT / relative
+        assert path.exists(), f"released solution file is missing: {relative}"
+        defined = functions(path)
+        for name in names:
+            assert name in defined, f"{relative}: released {name}() is missing"
+            assert not is_clean_stub(defined[name]), (
+                f"{relative}: {name}() is listed as released but is still a stub"
+            )
 
 
 def main() -> None:
