@@ -28,6 +28,10 @@ TICTACTOE_FUNCTIONS = (
     "minimax",
 )
 
+MASTERMIND_EXERCISE = "Mastermind/mastermind_exercise.py"
+MASTERMIND_TODOS = 6
+MASTERMIND_LEAKED_SYMBOLS = ("yellow2", "green3")
+
 # Functions that must still be clean starter stubs in the public checkout.
 STARTER_STUBS: dict[str, tuple[str, ...]] = {
     "Search/degrees.py": ("shortest_path",),
@@ -126,10 +130,42 @@ def check_python_boundaries() -> None:
             )
 
 
+def check_mastermind_boundary() -> None:
+    path = ROOT / MASTERMIND_EXERCISE
+    if not path.exists():
+        return
+
+    text = path.read_text(encoding="utf-8")
+    todos = sum(1 for line in text.splitlines() if line.startswith("# TODO "))
+    assert todos == MASTERMIND_TODOS, (
+        f"{MASTERMIND_EXERCISE}: expected {MASTERMIND_TODOS} TODO blocks, found {todos}"
+    )
+
+    for symbol in MASTERMIND_LEAKED_SYMBOLS:
+        assert symbol not in text, (
+            f"{MASTERMIND_EXERCISE}: leaks the answer symbol {symbol}"
+        )
+
+    tree = ast.parse(text, filename=str(path))
+    for node in tree.body:
+        if not isinstance(node, ast.Assign):
+            continue
+        if "knowledge" not in {t.id for t in node.targets if isinstance(t, ast.Name)}:
+            continue
+        call = node.value
+        assert (
+            isinstance(call, ast.Call)
+            and isinstance(call.func, ast.Name)
+            and call.func.id == "And"
+            and not call.args
+        ), f"{MASTERMIND_EXERCISE}: the knowledge base must start out empty"
+
+
 def main() -> None:
     files = public_files()
     check_paths(files)
     check_python_boundaries()
+    check_mastermind_boundary()
     print(f"Student release boundary verified across {len(files)} files.")
 
 

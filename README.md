@@ -10,12 +10,14 @@ will be added here as the course progresses.
 
 ## Current release
 
-The repository currently contains the student starters for **Week 2 — Search
-and Games**:
+The repository contains **Week 2 — Search and Games**, now with worked
+solutions, and the current **Week 3 — Logic** task:
 
 - `Search/` — Degrees of Separation, the core Tuesday studio task;
-- `tic-tac-toe/` — the seven-function Minimax starter used for Thursday's
-  representation work and optional extension.
+- `tic-tac-toe/` — the seven-function Minimax project used for Thursday's
+  representation work and optional extension;
+- `Mastermind/` — the Week 3 propositional-logic and model-checking task,
+  with six bounded TODO blocks to complete.
 
 Only the small Degrees dataset is included. It is sufficient for the required
 lab and avoids a large download. Worked solutions appear here only after the

@@ -13,5 +13,13 @@
 - Reworked the release-boundary check to track solutions published after a
   deadline instead of requiring every starter function to stay a stub.
 
+## 2026-09-08 — Week 3 Mastermind
+
+- Added the Mastermind propositional-logic task with six bounded TODO blocks,
+  the supplied `logic.py` model-checking library, the reference PDF, and the
+  optional `Logic_example.ipynb` syntax examples.
+- Extended the boundary check to hold the six TODO blocks and the empty
+  knowledge base in place. No solution is distributed.
+
 Later course material will be released incrementally and announced on Moodle.
 Moodle remains authoritative for required work and deadlines.

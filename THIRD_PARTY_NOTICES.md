@@ -2,7 +2,8 @@
 
 ## CS50 AI
 
-The starter code and small data in `Search/` and `tic-tac-toe/` are adapted
+The starter code and small data in `Search/`, `tic-tac-toe/`, and the
+`Mastermind/logic.py` propositional-logic library are adapted
 from **CS50's Introduction to Artificial Intelligence with Python**, by David
 J. Malan and Brian Yu:
 
