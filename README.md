@@ -10,14 +10,13 @@ will be added here as the course progresses.
 
 ## Current release
 
-The repository contains **Week 2 — Search and Games**, now with worked
-solutions, and the current **Week 3 — Logic** task:
+The repository contains **Week 2 — Search and Games** and **Week 3 —
+Logic**, both now with worked solutions:
 
 - `Search/` — Degrees of Separation, the core Tuesday studio task;
 - `tic-tac-toe/` — the seven-function Minimax project used for Thursday's
   representation work and optional extension;
-- `Mastermind/` — the Week 3 propositional-logic and model-checking task,
-  with six bounded TODO blocks to complete.
+- `Mastermind/` — the Week 3 propositional-logic and model-checking task.
 
 Only the small Degrees dataset is included. It is sufficient for the required
 lab and avoids a large download. Worked solutions appear here only after the
@@ -44,8 +43,8 @@ python3 degrees.py small
 
 The program should load the data and ask for two names, then print the
 connection between them. The Week 2 worked solutions for Degrees and
-Tic-Tac-Toe are now released; read them against your own attempt rather than
-in place of it.
+Tic-Tac-Toe, and the Week 3 worked solution for Mastermind, are now released;
+read them against your own attempt rather than in place of it.
 
 See the README inside each exercise directory for its task and setup.
 

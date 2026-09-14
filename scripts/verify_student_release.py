@@ -29,8 +29,10 @@ TICTACTOE_FUNCTIONS = (
 )
 
 MASTERMIND_EXERCISE = "Mastermind/mastermind_exercise.py"
-MASTERMIND_TODOS = 6
-MASTERMIND_LEAKED_SYMBOLS = ("yellow2", "green3")
+
+# Set once the Week 3 deadline has passed and the worked solution is published.
+MASTERMIND_RELEASED = True
+MASTERMIND_ANSWER_SYMBOLS = ("red0", "blue1", "yellow2", "green3")
 
 # Functions that must still be clean starter stubs in the public checkout.
 STARTER_STUBS: dict[str, tuple[str, ...]] = {
@@ -136,29 +138,44 @@ def check_mastermind_boundary() -> None:
         return
 
     text = path.read_text(encoding="utf-8")
-    todos = sum(1 for line in text.splitlines() if line.startswith("# TODO "))
-    assert todos == MASTERMIND_TODOS, (
-        f"{MASTERMIND_EXERCISE}: expected {MASTERMIND_TODOS} TODO blocks, found {todos}"
-    )
 
-    for symbol in MASTERMIND_LEAKED_SYMBOLS:
-        assert symbol not in text, (
-            f"{MASTERMIND_EXERCISE}: leaks the answer symbol {symbol}"
+    if not MASTERMIND_RELEASED:
+        todos = sum(1 for line in text.splitlines() if line.startswith("# TODO "))
+        assert todos == 6, (
+            f"{MASTERMIND_EXERCISE}: expected 6 TODO blocks, found {todos}"
         )
 
-    tree = ast.parse(text, filename=str(path))
-    for node in tree.body:
-        if not isinstance(node, ast.Assign):
-            continue
-        if "knowledge" not in {t.id for t in node.targets if isinstance(t, ast.Name)}:
-            continue
-        call = node.value
-        assert (
-            isinstance(call, ast.Call)
-            and isinstance(call.func, ast.Name)
-            and call.func.id == "And"
-            and not call.args
-        ), f"{MASTERMIND_EXERCISE}: the knowledge base must start out empty"
+        tree = ast.parse(text, filename=str(path))
+        for node in tree.body:
+            if not isinstance(node, ast.Assign):
+                continue
+            if "knowledge" not in {t.id for t in node.targets if isinstance(t, ast.Name)}:
+                continue
+            call = node.value
+            assert (
+                isinstance(call, ast.Call)
+                and isinstance(call.func, ast.Name)
+                and call.func.id == "And"
+                and not call.args
+            ), f"{MASTERMIND_EXERCISE}: the knowledge base must start out empty"
+        return
+
+    assert "TODO" not in text, (
+        f"{MASTERMIND_EXERCISE}: listed as released but still contains a TODO marker"
+    )
+
+    result = subprocess.run(
+        ["python3", path.name],
+        cwd=path.parent,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    entailed = result.stdout.split()
+    assert entailed == list(MASTERMIND_ANSWER_SYMBOLS), (
+        f"{MASTERMIND_EXERCISE}: released solution should entail exactly "
+        f"{MASTERMIND_ANSWER_SYMBOLS}, got {entailed}"
+    )
 
 
 def main() -> None:

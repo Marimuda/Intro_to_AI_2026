@@ -5,7 +5,8 @@ from two clue rounds.
 
 Student files:
 
-- `mastermind_exercise.py` — six bounded TODO blocks;
+- `mastermind_exercise.py` — the structural rules, both clues, and the
+  entailment query;
 - `logic.py` — supplied propositional-logic and model-checking library;
 - `Mastermind.pdf` — inherited reference description; the A4 Week 3 workbook is
   the core classroom handout;
@@ -21,8 +22,9 @@ Record a prediction before each query run. A printed arrangement is not enough:
 you must be able to identify which structural or clue constraint rules out an
 alternative world.
 
-The completed implementation is not distributed. Keep your own solution local
-or in a private repository.
+The deadline has passed, so a worked implementation is now released. Read it
+against your own attempt: you should still be able to explain why each rule
+is needed and what world it rules out, not just that the arrangement prints.
 
 `logic.py` is the propositional-logic library from Harvard's
 [CS50's Introduction to Artificial Intelligence with Python](https://cs50.harvard.edu/ai/),
