@@ -4,6 +4,9 @@
 from __future__ import annotations
 
 import ast
+import csv
+import hashlib
+import json
 import subprocess
 from pathlib import Path
 
@@ -52,7 +55,7 @@ def public_files() -> list[Path]:
     """Return tracked files, or all candidate files before the first commit."""
     try:
         output = subprocess.run(
-            ["git", "ls-files", "-z"],
+            ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
             cwd=ROOT,
             check=True,
             capture_output=True,
@@ -61,7 +64,7 @@ def public_files() -> list[Path]:
         output = b""
 
     if output:
-        return [ROOT / item.decode() for item in output.split(b"\0") if item]
+        return list(dict.fromkeys(ROOT / item.decode() for item in output.split(b"\0") if item))
 
     return [
         path
@@ -178,11 +181,57 @@ def check_mastermind_boundary() -> None:
     )
 
 
+def check_learning_boundary() -> None:
+    folder = ROOT / "Counterfeit banknotes with scikit learn"
+    if not folder.exists():
+        return
+    names = {"README.md", "banknotes.csv", "Learning_exercise.ipynb",
+             "learning_by_hand.py", "week6_tuesday_code_card.pdf"}
+    assert {p.name for p in folder.iterdir() if p.is_file()} == names, "Week 6 file allowlist differs"
+    data = folder / "banknotes.csv"
+    assert hashlib.sha256(data.read_bytes()).hexdigest() == "71f403bf5a743b8bb4658cae2fb8b82e98a3d79a886facc56a77038b5c5d801d", "Banknotes data changed"
+    with data.open(newline="") as stream:
+        rows = list(csv.reader(stream))
+    assert rows[0] == ["variance", "skewness", "curtosis", "entropy", "class"]
+    assert len(rows) == 1373 and all(len(row) == 5 for row in rows)
+    assert sum(int(row[4]) for row in rows[1:]) == 610
+    for row in rows[1:]:
+        assert int(row[4]) in (0, 1)
+        for value in row[:4]:
+            float(value)
+    notebook = json.loads((folder / "Learning_exercise.ipynb").read_text())
+    assert notebook["nbformat"] == 4
+    todos = 0
+    for cell in notebook["cells"]:
+        if cell["cell_type"] != "code":
+            continue
+        assert not cell["outputs"] and cell["execution_count"] is None, "Week 6 notebook has saved answers"
+        source = "".join(cell["source"])
+        ast.parse(source)
+        if "# TO DO" in source:
+            todos += 1
+            assert not ast.parse(source).body, "Week 6 notebook TODO contains an answer"
+    assert todos == 5, "Expected five clean notebook TODO cells"
+    defined = functions(folder / "learning_by_hand.py")
+    for name in ("squared_distance", "knn_predict", "accuracy", "holdout_split",
+                 "perceptron_update", "train_perceptron", "k_fold_accuracy"):
+        body = list(defined[name].body)
+        if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) and isinstance(body[0].value.value, str):
+            body.pop(0)
+        assert len(body) == 1 and isinstance(body[0], ast.Raise), f"Week 6 {name} must be a clean stub"
+        exc = body[0].exc
+        assert isinstance(exc, ast.Call) and isinstance(exc.func, ast.Name) and exc.func.id == "NotImplementedError", f"Week 6 {name} must remain unimplemented"
+        assert len(exc.args) == 1 and isinstance(exc.args[0], ast.Constant) and isinstance(exc.args[0].value, str)
+        assert not exc.keywords
+    assert (folder / "week6_tuesday_code_card.pdf").read_bytes().startswith(b"%PDF-")
+
+
 def main() -> None:
     files = public_files()
     check_paths(files)
     check_python_boundaries()
     check_mastermind_boundary()
+    check_learning_boundary()
     print(f"Student release boundary verified across {len(files)} files.")
 
 

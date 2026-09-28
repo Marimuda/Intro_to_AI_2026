@@ -11,14 +11,19 @@ will be added here as the course progresses.
 ## Current release
 
 The repository contains **Week 2 — Search and Games** and **Week 3 —
-Logic**, both now with worked solutions:
+Logic**, both with worked solutions, plus the **Week 6 — Learning** student pack:
 
 - `Search/` — Degrees of Separation, the core Tuesday studio task;
 - `tic-tac-toe/` — the seven-function Minimax project used for Thursday's
   representation work and optional extension;
-- `Mastermind/` — the Week 3 propositional-logic and model-checking task.
+- `Mastermind/` — the Week 3 propositional-logic and model-checking task;
+- `Counterfeit banknotes with scikit learn/` — the CSV, code card, clean
+  notebook and optional, ungraded `learning_by_hand.py` consolidation.
 
-Only the small Degrees dataset is included. It is sufficient for the required
+Read the Week 6 folder README before class. Task 12 is core; later lab rounds
+are extensions. No worked Week 6 solution is included.
+
+Degrees includes only its small dataset. It is sufficient for the required
 lab and avoids a large download. Worked solutions appear here only after the
 deadline for that task has passed; answer keys, instructor checks, future
 assignments, and unreleased weeks are deliberately not part of this

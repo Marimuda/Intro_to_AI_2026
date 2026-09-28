@@ -29,5 +29,13 @@
   exactly the correct arrangement instead of requiring the six TODO blocks
   and empty knowledge base to stay in place.
 
+## 2026-09-28 — Week 6 Learning
+
+- Added the banknotes CSV, updated code card and clean notebook route for Tuesday.
+- Added optional, ungraded `learning_by_hand.py` with seven clean TODO functions.
+- Marked extensions and distinguished validation/model selection from a final test.
+- Extended the release check to cover the dataset, clean notebook and Python stubs.
+- No worked Week 6 solution, final-assignment answer or instructor material is included.
+
 Later course material will be released incrementally and announced on Moodle.
 Moodle remains authoritative for required work and deadlines.

@@ -15,6 +15,12 @@ J. Malan and Brian Yu:
 Changes in this course release include local packaging, reduced dataset scope,
 student-facing instructions, and restoration of clean starter boundaries.
 
+The Week 6 `Counterfeit banknotes with scikit learn/` notebook and CSV also
+derive from the CS50 AI teaching exercise. The CSV was recovered from the
+2020 `src4/banknotes/banknotes.csv` source bundle; the data are unchanged.
+The notebook has clean TODO cells, a seeded model and updated local instructions.
+The code card and optional practice scaffold are local teaching additions.
+
 ## Open Sans
 
 `tic-tac-toe/OpenSans-Regular.ttf` contains Open Sans font data. Digitized data
