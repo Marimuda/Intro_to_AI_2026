@@ -25,6 +25,7 @@ jobs:
           tic-tac-toe/runner.py
           Mastermind/mastermind_exercise.py
           Mastermind/logic.py
+          "Counterfeit banknotes with scikit learn/learning_by_hand.py"
           scripts/verify_student_release.py
 
       - name: Verify the student-solution boundary
