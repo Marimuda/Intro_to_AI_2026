@@ -21,14 +21,6 @@
 - Extended the boundary check to hold the six TODO blocks and the empty
   knowledge base in place. No solution is distributed.
 
-## 2026-09-14 — Week 3 Mastermind solution
-
-- Released the worked propositional-logic encoding for the Week 3 Mastermind
-  task: the structural rules, both clues, and the entailment query.
-- Reworked the boundary check to run the released file and assert it entails
-  exactly the correct arrangement instead of requiring the six TODO blocks
-  and empty knowledge base to stay in place.
-
 ## 2026-09-28 — Week 6 Learning
 
 - Added the banknotes CSV, updated code card and clean notebook route for Tuesday.
@@ -36,6 +28,14 @@
 - Marked extensions and distinguished validation/model selection from a final test.
 - Extended the release check to cover the dataset, clean notebook and Python stubs.
 - No worked Week 6 solution, final-assignment answer or instructor material is included.
+
+## 2026-09-29 — Week 3 Mastermind solution
+
+- Released the worked propositional-logic encoding for the Week 3 Mastermind
+  task: the structural rules, both clues, and the entailment query.
+- Reworked the boundary check to run the released file and assert it entails
+  exactly the correct arrangement instead of requiring the six TODO blocks
+  and empty knowledge base to stay in place.
 
 Later course material will be released incrementally and announced on Moodle.
 Moodle remains authoritative for required work and deadlines.
